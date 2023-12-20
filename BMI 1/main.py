@@ -4,12 +4,39 @@ from tkinter import ttk
 
 from PIL import Image, ImageTk
 
-
 root=Tk()
 root.title("BMI Calculator")
 root.geometry("470x580+300+200")
 root.resizable(False,False)
 root.configure(bg="#f0f1f5")
+
+
+
+def BMI():
+    h=float(Height.get())
+    w=float(Weight.get())
+    
+    #convert height to meter
+    m=h/100
+    bmi=round(float(w/m**2))
+    label1.config(text=bmi)
+    
+    
+    if (bmi<=18.5):
+        label2.config(text="underweight!\n")
+        label3.config(text="You have lower weight.")
+
+    elif (bmi>=18.5 and bmi<=25):
+        label2.config(text="Normal!")
+        label3.config(text="It indicates,\n you have healthy body!")
+
+    elif (bmi>25 and bmi<=30):
+        label2.config(text="Overweight!")
+        label3.config(text="It indicates that a person is \n slightly overweight!\n")
+
+    else:
+        label2.config(text="Obesity!")
+        label3.config(text="Health may be at risk, \n if you do not lose weight")
 
 
 #icon
@@ -26,10 +53,12 @@ top_image.place(x=-10,y=-10)
 #bottom
 Label(root,width=72,height=18,bg="lightblue").pack(side=BOTTOM)
 
+
 #two boxes
 box=PhotoImage(file="BMI 1/images/box.png")
 Label(root,image=box).place(x=20,y=100)
 Label(root,image=box).place(x=240,y=100)
+
 
 #scale
 scale=PhotoImage(file="BMI 1/images/scale.png")
@@ -45,6 +74,14 @@ def get_current_value1():
 
 def slider_changed1(event):
     Height.set(get_current_value1())
+
+    size=int(float(get_current_value1()))
+    img=(Image.open("BMI 1/images/man.png"))
+    resized_image=img.resize((50,10+size))
+    photo2=ImageTk.PhotoImage(resized_image)
+    secondimage.config(image=photo2)
+    secondimage.place(x=70,y=550-size)
+    secondimage.image=photo2
 
 
 #command to change background color of scale slider
@@ -80,25 +117,37 @@ slider2.place(x=300, y=250)
 
 
 
-
-
 ################################################################
 
 
 #Entry Box
 Height=StringVar()
 Weight=StringVar()
+
 height=Entry(root,textvariable=Height,width=5,font='arial 50',bg="#fff",fg="#000",bd=0,justify=CENTER) #to align text center.
 height.place(x=35,y=160)
-#Height.set()
+Height.set(get_current_value1())
 
 weight = Entry(root, textvariable=Weight, width=5, font='arial 50',bg="#fff", fg="#000", bd=0, justify=CENTER)  # to align text center.
 weight.place(x=225, y=160)
-#Weight.set()
+Weight.set(get_current_value2())
 
 
 #man image
 secondimage=Label(root,bg="lightblue")
 secondimage.place(x=70,y=530)
+
+
+Button(root,text="View Report",width=15,height=2,font="arial 10 bold",bg="#1f6e68",fg="white",command=BMI).place(x=280,y=340)
+
+label1=Label(root,font="arial 60 bold",bg="lightblue",fg="#fff")
+label1.place(x=125,y=305)
+
+label2=Label(root,font="arial 20 bold",bg="lightblue",fg="#3b3a3a")
+label2.place(x=280,y=430)
+
+label3=Label(root,font="arial 10 bold",bg="lightblue")
+label3.place(x=200,y=500)
+
 
 root.mainloop()
