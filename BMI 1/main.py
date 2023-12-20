@@ -37,20 +37,20 @@ Label(root,image=scale,bg="lightblue").place(x=20,y=310)
 
 
 #######################################Slider1#####################
-current_value=tk.DoubleVar()
+current_value1=tk.DoubleVar()
 
 
-def get_current_value():
-    return '{: .2f}'.format(current_value.get())
+def get_current_value1():
+    return '{: .2f}'.format(current_value1.get())
 
-def slider_changed(event):
-    Height.set(get_current_value())
+def slider_changed1(event):
+    Height.set(get_current_value1())
 
 
 #command to change background color of scale slider
 style=ttk.Style()
 style.configure("TScale",background="white")
-slider=ttk.Scale(root,from_=0,to=220,orient='horizontal',style="TScale",command=slider_changed, variable=current_value)
+slider=ttk.Scale(root,from_=0,to=200,orient='horizontal',style="TScale",command=slider_changed1, variable=current_value1)
 slider.place(x=80,y=250)
 
 
@@ -61,6 +61,22 @@ slider.place(x=80,y=250)
 
 
 ##############################Slider2################################################
+current_value2 = tk.DoubleVar()
+
+
+def get_current_value2():
+    return '{: .2f}'.format(current_value2.get())
+
+
+def slider_changed2(event):
+    Weight.set(get_current_value2())
+
+
+# command to change background color of scale slider
+style2 = ttk.Style()
+style2.configure("TScale", background="white")
+slider2 = ttk.Scale(root, from_=0, to=200, orient='horizontal',style="TScale", command=slider_changed2, variable=current_value2)
+slider2.place(x=300, y=250)
 
 
 
